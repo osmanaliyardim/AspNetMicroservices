@@ -1,4 +1,5 @@
 ﻿using Basket.API.Entities;
+using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,17 @@ namespace Basket.API.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepository _basketRepository;
+        private readonly DiscountGrpcService _discountGrpcService;
 
-        public BasketController(IBasketRepository basketRepository)
+        public BasketController(IBasketRepository basketRepository,
+            DiscountGrpcService discountGrpcService)
         {
             _basketRepository = basketRepository ?? throw new ArgumentNullException(nameof(basketRepository));
+            _discountGrpcService = discountGrpcService ?? throw new ArgumentNullException(nameof(discountGrpcService));
         }
 
         [HttpGet("{userName}", Name = nameof(GetBasket))]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ShoppingCart>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingCart))]
         public async Task<ActionResult<ShoppingCart>> GetBasket(string userName)
         {
             var cart = await _basketRepository.GetBasket(userName);
@@ -29,9 +33,16 @@ namespace Basket.API.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<ShoppingCart>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ShoppingCart))]
         public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart cart)
         {
+            foreach (var item in cart.Items)
+            {
+                var coupon = await _discountGrpcService.GetDiscount(item.ProductName);
+
+                item.Price -= coupon.Amount;
+            }
+
             return Ok(await _basketRepository.UpdateBasket(cart));
         }
 
