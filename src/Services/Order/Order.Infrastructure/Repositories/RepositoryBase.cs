@@ -21,6 +21,8 @@ namespace Order.Infrastructure.Repositories
 
         public async Task<T> AddAsync(T entity)
         {
+            _context.Entry(entity).State = EntityState.Added;
+
             _context.Set<T>().Add(entity);
 
             await _context.SaveChangesAsync();
@@ -30,6 +32,8 @@ namespace Order.Infrastructure.Repositories
 
         public async Task DeleteAsync(T entity)
         {
+            _context.Entry(entity).State = EntityState.Deleted;
+            
             _context.Set<T>().Remove(entity);
 
             await _context.SaveChangesAsync();

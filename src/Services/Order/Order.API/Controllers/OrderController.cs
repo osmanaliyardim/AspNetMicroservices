@@ -57,7 +57,7 @@ namespace Order.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete(Name = nameof(DeleteOrder))]
+        [HttpDelete("{id}", Name = nameof(DeleteOrder))]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

@@ -13,6 +13,9 @@ services:
   pgadmin:
     image: dpage/pgadmin4
 
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
   portainer:
     image: portainer/portainer-ce
 
@@ -39,6 +42,12 @@ services:
     build:
       context: .
       dockerfile: Services/Discount/Discount.Grpc/Dockerfile
+
+  order.api:
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: Services/Order/Order.API/Dockerfile
 
 volumes:
   mongo_data:
