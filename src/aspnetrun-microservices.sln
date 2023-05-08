@@ -37,7 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.Messages", "Buildi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{5568B67B-F4F4-4CC7-8AE1-0D79D75F38DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcelotApiGateway", "ApiGateways\OcelotApiGateway\OcelotApiGateway.csproj", "{86A90E28-9880-4112-AB8A-80FE989252A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcelotApiGateway", "ApiGateways\OcelotApiGateway\OcelotApiGateway.csproj", "{86A90E28-9880-4112-AB8A-80FE989252A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Aggregator", "ApiGateways\Shopping.Aggregator\Shopping.Aggregator.csproj", "{D09401F8-4DEB-41FE-B3DD-2A15293C8157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{86A90E28-9880-4112-AB8A-80FE989252A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86A90E28-9880-4112-AB8A-80FE989252A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86A90E28-9880-4112-AB8A-80FE989252A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D09401F8-4DEB-41FE-B3DD-2A15293C8157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D09401F8-4DEB-41FE-B3DD-2A15293C8157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D09401F8-4DEB-41FE-B3DD-2A15293C8157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D09401F8-4DEB-41FE-B3DD-2A15293C8157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{9D163E29-DFF2-4091-B463-D6565D495A2C} = {91476AAE-5EF2-4C42-894F-8BD27161ADBB}
 		{5DBA4FA5-0687-4491-B97A-98013EA8E8F7} = {7ADA55E6-FCA9-4727-8CEB-278FF89921FA}
 		{86A90E28-9880-4112-AB8A-80FE989252A0} = {5568B67B-F4F4-4CC7-8AE1-0D79D75F38DE}
+		{D09401F8-4DEB-41FE-B3DD-2A15293C8157} = {5568B67B-F4F4-4CC7-8AE1-0D79D75F38DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC69A0D5-A79E-4798-8C1F-CC80551D2189}
