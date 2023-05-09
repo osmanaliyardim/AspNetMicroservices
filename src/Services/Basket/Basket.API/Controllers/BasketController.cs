@@ -4,6 +4,7 @@ using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using EventBus.Messages.Events;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -64,6 +65,7 @@ namespace Basket.API.Controllers
         }
 
         [Route("[action]")]
+        [Authorize("ClientIdPolicy")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status202Accepted, Type = typeof(void))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(void))]
