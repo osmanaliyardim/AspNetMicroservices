@@ -11,7 +11,8 @@
         "order.api": "StartDebugging",
         "ocelotapigateway": "StartDebugging",
         "shopping.aggregator": "StartDebugging",
-        "aspnetrunbasics": "StartDebugging"
+        "aspnetrunbasics": "StartDebugging",
+        "identityserver": "StartDebugging"
       }
     }
   }

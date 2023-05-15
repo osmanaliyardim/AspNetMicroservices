@@ -26,7 +26,8 @@ namespace IdentityServer
                 {
                     ClientId = "uiClient",
                     ClientName = "AspNetRun UI",
-                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    RequirePkce = false,
                     AllowRememberConsent = false,
                     RedirectUris = new List<string>()
                     {
@@ -43,7 +44,11 @@ namespace IdentityServer
                     AllowedScopes = new List<string>()
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Address,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "basketAPI",
+                        "roles"
                     }
                 }
             };
@@ -64,7 +69,13 @@ namespace IdentityServer
            new IdentityResource[]
            {
                new IdentityResources.OpenId(),
-               new IdentityResources.Profile()
+               new IdentityResources.Profile(),
+               new IdentityResources.Address(),
+               new IdentityResources.Email(),
+               new IdentityResource(
+                   "roles",
+                   "Your role(s)",
+                   new List<string>() { "role" })
            };
 
         public static List<TestUser> TestUsers =>

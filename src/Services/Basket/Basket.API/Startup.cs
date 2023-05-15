@@ -66,7 +66,7 @@ namespace Basket.API
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ClientIdPolicy", 
-                    policy => policy.RequireClaim("client_id", "basketClient"));
+                    policy => policy.RequireClaim("client_id", "basketClient", "uiClient"));
             });
 
             services.AddControllers();
