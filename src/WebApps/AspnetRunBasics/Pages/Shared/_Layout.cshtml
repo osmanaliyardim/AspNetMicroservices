@@ -39,6 +39,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-page="/Contact">Contact</a>
                         </li>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-page="/Admin">Admin</a>
+                            </li>
+                        }
                     </ul>
 
                     <form class="form-inline my-2 my-lg-0">
@@ -50,10 +56,24 @@
                                 </button>
                             </div>
                         </div>
+
                         <a class="btn btn-success btn-sm ml-3" asp-area="" asp-page="/Cart">
                             <i class="fa fa-shopping-cart"></i> Cart
                             <span class="badge badge-light">3</span>
                         </a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="btn btn-danger btn-sm ml-3" asp-area="" asp-page="/Logout">
+                                Logout
+                                <span class="badge badge-light">X</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-info btn-sm ml-3" asp-area="" asp-page="/Login">
+                                Login
+                            </a>
+                        }
                     </form>
                 </div>
             </div>

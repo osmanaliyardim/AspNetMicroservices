@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,22 @@ namespace Basket.API
 
             services.AddAutoMapper(typeof(Startup));
 
+            services.AddAuthentication("Bearer")
+                    .AddJwtBearer("Bearer", options =>
+                    {
+                        options.Authority = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false
+                        };
+                    });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ClientIdPolicy", 
+                    policy => policy.RequireClaim("client_id", "basketClient", "uiClient"));
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -73,6 +90,7 @@ namespace Basket.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

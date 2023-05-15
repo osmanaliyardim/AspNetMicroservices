@@ -70,10 +70,14 @@ services:
       context: .
       dockerfile: WebApps/AspnetRunBasics/Dockerfile
 
+  identityserver:
+    image: ${DOCKER_REGISTRY-}identityserver
+    build:
+      context: .
+      dockerfile: Services/Identity/IdentityServer/Dockerfile
+
 volumes:
   mongo_data:
   portainer_data:
   postgres_data:
   pgadmin_data:
-    
-
