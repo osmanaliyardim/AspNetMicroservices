@@ -4,23 +4,37 @@ using System.Threading.Tasks;
 using System;
 using AspnetRunBasics.Models;
 using AspnetRunBasics.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace AspnetRunBasics.Services
 {
     public class CatalogService : ICatalogService
     {
         private readonly HttpClient _client;
+        private readonly ILogger<CatalogService> _logger;
 
-        public CatalogService(HttpClient client)
+        public CatalogService(HttpClient client, ILogger<CatalogService> logger)
         {
             _client = client ?? throw new ArgumentNullException(nameof(client));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         public async Task<IEnumerable<CatalogModel>> GetCatalog()
         {
-            var response = await _client.GetAsync("/Catalog");
+            _logger.LogInformation("Getting Catalog products form url: {url} and custom property: {customProperty}", _client.BaseAddress, 6);
 
-            return await response.ReadContentAs<List<CatalogModel>>();
+            try
+            {
+                var response = await _client.GetAsync("/Catalog");
+
+                return await response.ReadContentAs<List<CatalogModel>>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while trying to get Catalog Service!");
+            }
+
+            return null;
         }
 
         public async Task<CatalogModel> GetCatalog(string id)
