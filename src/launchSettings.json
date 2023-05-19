@@ -12,7 +12,8 @@
         "ocelotapigateway": "StartDebugging",
         "shopping.aggregator": "StartDebugging",
         "aspnetrunbasics": "StartDebugging",
-        "identityserver": "StartDebugging"
+        "identityserver": "StartDebugging",
+        "webstatus": "StartDebugging"
       }
     }
   }
