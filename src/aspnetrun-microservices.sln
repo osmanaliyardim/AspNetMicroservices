@@ -49,7 +49,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{F6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "Services\Identity\IdentityServer\IdentityServer.csproj", "{3F87B880-6B13-4FA1-9E56-A032EFC4BCD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "BuildingBlocks\Common.Logging\Common.Logging.csproj", "{A27938F2-FFCF-4885-B1DA-FB3F670E9A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Logging", "BuildingBlocks\Common.Logging\Common.Logging.csproj", "{A27938F2-FFCF-4885-B1DA-FB3F670E9A89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStatus", "WebApps\WebStatus\WebStatus.csproj", "{616A4479-DCEE-4016-9C31-B95031EBAD82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,6 +119,10 @@ Global
 		{A27938F2-FFCF-4885-B1DA-FB3F670E9A89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A27938F2-FFCF-4885-B1DA-FB3F670E9A89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A27938F2-FFCF-4885-B1DA-FB3F670E9A89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{616A4479-DCEE-4016-9C31-B95031EBAD82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{616A4479-DCEE-4016-9C31-B95031EBAD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{616A4479-DCEE-4016-9C31-B95031EBAD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{616A4479-DCEE-4016-9C31-B95031EBAD82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +147,7 @@ Global
 		{F6AEDD5F-6077-4564-8DAA-D039B3181A36} = {12141D2A-54A6-4566-A394-DF65FEDFFE0A}
 		{3F87B880-6B13-4FA1-9E56-A032EFC4BCD7} = {F6AEDD5F-6077-4564-8DAA-D039B3181A36}
 		{A27938F2-FFCF-4885-B1DA-FB3F670E9A89} = {7ADA55E6-FCA9-4727-8CEB-278FF89921FA}
+		{616A4479-DCEE-4016-9C31-B95031EBAD82} = {D9A8485F-0016-48B2-9283-A4B12C896063}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FC69A0D5-A79E-4798-8C1F-CC80551D2189}
