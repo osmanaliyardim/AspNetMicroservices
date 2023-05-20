@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using Common.Infra;
 
 namespace Basket.API
 {
@@ -54,7 +55,7 @@ namespace Basket.API
             services.AddAuthentication("Bearer")
                     .AddJwtBearer("Bearer", options =>
                     {
-                        options.Authority = Environment.GetEnvironmentVariable("ASPNETCORE_URLS");
+                        options.Authority = Configuration["IdentityServer:Uri"];
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateAudience = false
@@ -63,9 +64,11 @@ namespace Basket.API
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ClientIdPolicy", 
-                    policy => policy.RequireClaim("client_id", "basketClient", "uiClient"));
+                options.AddPolicy("ClientIdPolicy",
+                    policy => policy.RequireClaim("client_id", "uiClient"));
             });
+
+            services.AddConsulServices(Configuration.GetServiceConfig());
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

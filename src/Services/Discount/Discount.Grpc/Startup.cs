@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Common.Infra;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Discount.Grpc
 {
@@ -28,6 +30,23 @@ namespace Discount.Grpc
             services.AddAutoMapper(typeof(Startup));
 
             services.AddGrpc();
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = Configuration["IdentityServer:Uri"];
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "uiClient"));
+            });
+
+            services.AddConsulServices(Configuration.GetServiceConfig());
 
             services.AddHealthChecks()
                    .AddNpgSql(Configuration["DatabaseSettings:ConnectionString"]);

@@ -1,5 +1,6 @@
 ﻿using Catalog.API.Entities;
 using Catalog.API.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -57,6 +58,7 @@ namespace Catalog.API.Controllers
             return Ok(products);
         }
 
+        [Authorize("ClientIdPolicy")]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Product))]
         public async Task<ActionResult<Product>> CreateProduct([FromBody] Product product)
@@ -66,6 +68,7 @@ namespace Catalog.API.Controllers
             return CreatedAtRoute(nameof(GetProductById), new { id = product.Id }, product);
         }
 
+        [Authorize("ClientIdPolicy")]
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         public async Task<IActionResult> UpdatePoduct([FromBody] Product product)
@@ -73,6 +76,7 @@ namespace Catalog.API.Controllers
             return Ok(await _productRepository.UpdateProduct(product));
         }
 
+        [Authorize("ClientIdPolicy")]
         [HttpDelete("{id:length(24)}", Name = nameof(DeleteProduct))]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IActionResult))]
         public async Task<IActionResult> DeleteProduct(string id)

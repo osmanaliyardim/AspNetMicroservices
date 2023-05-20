@@ -4,6 +4,9 @@ services:
   catalogdb:
     image: mongo
 
+  mongoclient:
+    image: mongoclient/mongoclient
+
   basketdb:
     image: redis:alpine
 
@@ -15,6 +18,12 @@ services:
 
   orderdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
+
+  identityserverdb:
+    image: mysql
+
+  phpmyadmin:
+    image: phpmyadmin
 
   portainer:
     image: portainer/portainer-ce
@@ -93,4 +102,5 @@ volumes:
   portainer_data:
   postgres_data:
   pgadmin_data:
-  elasticsearch-data:  
+  mysql_data:
+  elasticsearch-data:

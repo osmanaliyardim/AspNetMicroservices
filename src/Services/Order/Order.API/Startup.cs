@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Order.API.EventBusConsumer;
 using Order.Application;
 using Order.Infrastructure;
 using Order.Infrastructure.Persistence;
+using Common.Infra;
 
 namespace Order.API
 {
@@ -56,6 +58,23 @@ namespace Order.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Order.API", Version = "v1" });
             });
+
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = Configuration["IdentityServer:Uri"];
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ClientIdPolicy", policy => policy.RequireClaim("client_id", "uiClient"));
+            });
+
+            services.AddConsulServices(Configuration.GetServiceConfig());
 
             services.AddHealthChecks()
                     .AddDbContextCheck<OrderContext>()

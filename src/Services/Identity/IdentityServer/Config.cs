@@ -31,11 +31,11 @@ namespace IdentityServer
                     AllowRememberConsent = false,
                     RedirectUris = new List<string>()
                     {
-                        "https://localhost:5006/signin-oidc"
+                        "https://localhost:8006/signin-oidc"
                     },
                     PostLogoutRedirectUris = new List<string>()
                     {
-                        "https://localhost:5006/signout-callback-oidc"
+                        "https://localhost:8006/signout-callback-oidc"
                     },
                     ClientSecrets = new List<Secret>
                     {
@@ -48,7 +48,7 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Address,
                         IdentityServerConstants.StandardScopes.Email,
                         "basketAPI",
-                        "roles"
+                        "role"
                     }
                 }
             };
@@ -59,12 +59,6 @@ namespace IdentityServer
                new ApiScope("basketAPI", "Basket API")
            };
 
-        public static IEnumerable<ApiResource> ApiResources =>
-           new ApiResource[]
-           {
-
-           };
-
         public static IEnumerable<IdentityResource> IdentityResources =>
            new IdentityResource[]
            {
@@ -73,8 +67,8 @@ namespace IdentityServer
                new IdentityResources.Address(),
                new IdentityResources.Email(),
                new IdentityResource(
-                   "roles",
-                   "Your role(s)",
+                   "role",
+                   "Role",
                    new List<string>() { "role" })
            };
 

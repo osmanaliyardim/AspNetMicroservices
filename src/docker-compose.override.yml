@@ -9,6 +9,11 @@ services:
     volumes:
       - mongo_data:/data/db
  
+  mongoclient:
+    container_name: mongoclient
+    ports:
+      - "3000:3000"
+
   basketdb:
     container_name: basketdb
     restart: always
@@ -46,6 +51,26 @@ services:
       - "5050:80"
     volumes:
       - pgadmin_data:/root/.pgadmin
+
+  identityserverdb:
+    container_name: identityserverdb
+    environment:
+      MYSQL_ROOT_PASSWORD: "Abcd1234"
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+     - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "Abcd1234"
+      PMA_HOST: "identityserverdb"
+      PMA_PORT: "3306"
+    ports:
+     - "8090:80"
 
   portainer:
     container_name: portainer
@@ -171,14 +196,12 @@ services:
     container_name: identityserver
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - "ConnectionStrings:IdentityServerConnectionString=Server=identityserverdb;Port=3306;Database=IdentityServerDb;User Id=root;Password=Abcd1234;"
       - "ElasticConfiguration:Uri=http://elasticsearch:9200"
+    depends_on:
+      - identityserverdb
     ports:
-      - "8007:443"
-    volumes:
-      - ~/.aspnet/https:/https:ro
+      - "8007:80"
 
   elasticsearch:
     container_name: elasticsearch
