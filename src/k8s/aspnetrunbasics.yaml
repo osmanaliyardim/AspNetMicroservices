@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aspnetrunbasics-deployment
+  labels:
+    app: aspnetrunbasics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aspnetrunbasics
+  template:
+    metadata:
+      labels:
+        app: aspnetrunbasics
+    spec:
+      containers:
+        - name: aspnetrunbasics
+          image: osmanaliyardim/aspnetrunbasics:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+            - name: BasketAPIUrl
+              valueFrom:
+                  configMapKeyRef:
+                    name: basketapi-configmap
+                    key: basketapi_url
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aspnetrunbasics-service
+spec:
+  type: NodePort
+  selector:
+    app: aspnetrunbasics
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 80
+      nodePort: 30000
