@@ -1,51 +1,51 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: basketapi-deployment
+  name: aspnetrunbasics-deployment
   labels:
-    app: basketapi
+    app: aspnetrunbasics
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: basketapi
+      app: aspnetrunbasics
   template:
     metadata:
       labels:
-        app: basketapi
+        app: aspnetrunbasics
     spec:
       containers:
-        - name: basketapi
-          image: osmanaliyardim/basketapi:latest
+        - name: aspnetrunbasics
+          image: aspnetrunbasicsacr.azureacr.io/aspnetrunbasicsclient:v2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
-            - name: DatabaseSettings__ConnectionString
+            - name: CatalogAPIUrl
               valueFrom:
                   configMapKeyRef:
-                    name: mongo-configmap
-                    key: connection_string
+                    name: catalogapi-configmap
+                    key: catalogapi_url
           resources:
             requests:
               memory: "64Mi"
-              cpu: "250m"
+              cpu: "0.1"
             limits:
               memory: "128Mi"
-              cpu: "500m"
+              cpu: "0.3"
+      imagePullPolicy:
+        - name: acr-secret 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: basketapi-service
+  name: aspnetrunbasics-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-    app: basketapi
+    app: aspnetrunbasics
   ports:
     - protocol: TCP
-      port: 8000
-      targetPort: 80
-      nodePort: 31000
+      port: 80
